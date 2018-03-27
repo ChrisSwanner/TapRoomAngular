@@ -4,6 +4,5 @@ export class Keg {
   public onSale: boolean = false;
   public salePrice: number = 0;
   constructor(public description:string, public alcoholContent: number, public price: number, public style: string) {
-
   }
 }

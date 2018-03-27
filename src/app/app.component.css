@@ -1,9 +1,11 @@
-
 li {
   list-style: none;
   margin-top: 10px;
   padding: 7px;
   margin-left: -35px;
+  font-family: 'Fira Sans', sans-serif;
+  text-align: center;
+  border-radius: 15px;
 }
 .doneEditing {
   display: none;
@@ -14,8 +16,33 @@ li {
 .jumbotron {
   color: black;
   text-align: center;
+  font-family: 'Courgette', cursive;
 }
 
 .card {
   padding: 10px;
+}
+h1 {
+  font-size: 50px;
+  text-shadow: 2px 2px 5px grey;
+}
+h2 {
+  text-align: center;
+  font-family: 'Fira Sans', sans-serif;
+}
+label {
+  font-family: 'Fira Sans', sans-serif;
+}
+button {
+  font-family: 'Fira Sans', sans-serif;
+  border-radius: 10px;
+}
+.card {
+  background-color: rgba(150,200,255,.8)
+}
+img {
+  border-style: dashed;
+  border-color: blue;
+  border-width: thick;
+  border-radius: 50em;
 }

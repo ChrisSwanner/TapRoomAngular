@@ -128,7 +128,6 @@ export class AppComponent implements OnInit{
     currentKeg.onSale = true;
     let number = (currentKeg.price - (percentage * 0.01 * currentKeg.price));
     currentKeg.salePrice = Math.round(number * 1e2) / 1e2;
-    console.log(percentage)
   }
 
   filterKegs(style){

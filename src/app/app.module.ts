@@ -5,8 +5,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { AppComponent } from './app.component';
 import { config } from './api-keys';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { routing } from './app.routing';
 
 export const firebaseConfig = {
   apiKey: config.apiKey,
@@ -18,7 +16,6 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent,
 
   ],
   imports: [
@@ -26,7 +23,6 @@ export const firebaseConfig = {
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    routing
   ],
   providers: [],
   bootstrap: [AppComponent]

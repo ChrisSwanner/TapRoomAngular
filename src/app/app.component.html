@@ -3,8 +3,9 @@
     <h1>The Salty Sea Dog</h1>
   </div>
   <div class="card">
+    <img class="card-img-top" src="https://sfzone-x2i4rwbqpq8.netdna-ssl.com/wp-content/uploads/2015/07/largest-wooden-sailing-ship.jpg" alt="Card image cap">
     <div class="card-title">
-      <h1>On Tap for {{month}}/{{day}}/{{year}}</h1>
+      <h2>On Tap for {{month}}/{{day}}/{{year}}</h2>
       <br>
       <h2>Happy Hour from 5pm - 9pm</h2>
     </div>
@@ -13,21 +14,20 @@
       <ul>
         <li [class]="alcoholContentColor(currentKeg)"  *ngFor="let currentKeg of kegs">
           <h2>{{currentKeg.description}}</h2>
-          ${{currentKeg.price}},
-          Style: {{currentKeg.style}},
-          Pints Left: {{currentKeg.pintsLeft}} ,
-          Alcohol Content: 0.{{currentKeg.alcoholContent}}ABV
+          <p>${{currentKeg.price}} |
+          Style: {{currentKeg.style}} |
+          Pints Left: {{currentKeg.pintsLeft}} |
+          Alcohol Content: 0.{{currentKeg.alcoholContent}} ABV</p>
           <div *ngIf="currentKeg.salePrice > 0">
-            Sale Price: ${{currentKeg.salePrice}}
+            <h4>Sale Price: ${{currentKeg.salePrice}}</h4>
           </div>
-          <br>
-          <button (click)="editKeg(currentKeg)">Edit!</button>
-          <button (click)="sellPint(currentKeg)">Sell Pint</button>
-          <button (click)="sellGrowler(currentKeg)">Sell 32oz Growler</button>
-          <button (click)="sellBigGrowler(currentKeg)">Sell 64oz Growler</button>
-          <input [(ngModel)]="percentage" type="number" name="sale">
-          <button (click)="sale(currentKeg, percentage)">Put on Sale</button>
-          <button (click)="resetSale(currentKeg)">End Sale</button></li>
+          <button class="btn btn-dark" (click)="editKeg(currentKeg)">Edit!</button>
+          <button class="btn btn-dark" (click)="sellPint(currentKeg)">Sell Pint</button>
+          <button class="btn btn-dark" (click)="sellGrowler(currentKeg)">Sell 32oz Growler</button>
+          <button class="btn btn-dark" (click)="sellBigGrowler(currentKeg)">Sell 64oz Growler</button>
+          <input [(ngModel)]="percentage" placeholder="Sale Percentage" type="number" name="sale">
+          <button class="btn btn-dark" (click)="sale(currentKeg, percentage)">Put on Sale</button>
+          <button class="btn btn-dark" (click)="resetSale(currentKeg)">End Sale</button></li>
       </ul>
     </div>
     <button (click)="happyHour()">Happy Hour</button>
