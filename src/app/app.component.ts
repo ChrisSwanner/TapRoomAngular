@@ -28,14 +28,17 @@ export class AppComponent implements OnInit{
         }
       }, 1000);
   }
+
   public addingKeg: boolean = false;
   public kegFilter: boolean = false;
   public isHappyHour: boolean = false;
   currentTime = new Date();
+
   month: number = this.currentTime.getMonth() + 1;
   day: number = this.currentTime.getDate();
   year: number = this.currentTime.getFullYear();
   selectedKeg = null;
+
   kegs: Keg[] = [
     new Keg('Angry Student IPA', 1, 13, 'IPA'),
     new Keg('Butt Crack of Dawn', 2, 9, 'Pilsner'),
@@ -67,10 +70,12 @@ export class AppComponent implements OnInit{
   }
 
   sellGrowler(currentKeg) {
-    if (currentKeg.pintsLeft > 0) {
+    if (currentKeg.pintsLeft > 2) {
       currentKeg.pintsLeft -= 2;
+    } else if ((currentKeg.pintsLeft < 2) && (currentKeg.pintsLeft > 0)) {
+      alert("Not Enough Beer");
     } else if (currentKeg.pintsLeft === 0) {
-      alert("All out");
+      alert("All out")
     }
   }
 
@@ -116,8 +121,6 @@ export class AppComponent implements OnInit{
       return "bg-success";
     }
   }
-
-
 
   resetSale(currentKeg){
     currentKeg.onSale = false;
