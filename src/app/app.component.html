@@ -1,20 +1,162 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
+  <div class="jumbotron">
+    <h1>The Salty Sea Dog</h1>
+  </div>
+  <div class="card">
+    <div class="card-title">
+      <h1>On Tap for {{month}}/{{day}}/{{year}}</h1>
+      <br>
+      <h2>Happy Hour from 5pm - 9pm</h2>
+    </div>
+    <div class="card-body">
+      <br>
+      <ul>
+        <li [class]="alcoholContentColor(currentKeg)"  *ngFor="let currentKeg of kegs">
+          <h2>{{currentKeg.description}}</h2>
+          ${{currentKeg.price}},
+          Style: {{currentKeg.style}},
+          Pints Left: {{currentKeg.pintsLeft}} ,
+          Alcohol Content: 0.{{currentKeg.alcoholContent}}ABV
+          <div *ngIf="currentKeg.salePrice > 0">
+            Sale Price: ${{currentKeg.salePrice}}
+          </div>
+          <br>
+          <button (click)="editKeg(currentKeg)">Edit!</button>
+          <button (click)="sellPint(currentKeg)">Sell Pint</button>
+          <button (click)="sellGrowler(currentKeg)">Sell 32oz Growler</button>
+          <button (click)="sellBigGrowler(currentKeg)">Sell 64oz Growler</button>
+          <input [(ngModel)]="percentage" type="number" name="sale">
+          <button (click)="sale(currentKeg, percentage)">Put on Sale</button>
+          <button (click)="resetSale(currentKeg)">End Sale</button></li>
+      </ul>
+    </div>
+    <button (click)="happyHour()">Happy Hour</button>
+    <button (click)="addNewKeg()">Add New Keg</button>
+  </div>
 
+
+
+
+  <div *ngIf="selectedKeg">
+    <div class="card">
+      <div class="card-title">
+        <h2>Edit {{selectedKeg.description}}</h2>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>Enter Keg Description:</label>
+          <input class="form-control" [(ngModel)]="selectedKeg.description">
+        </div>
+        <div class="form-group">
+          <label for="style">Select Style</label>
+          <select class="form-control" name="style" [(ngModel)]="selectedKeg.style">
+            <option value="IPA">IPA</option>
+            <option value="APA">APA</option>
+            <option value="Red Ale">Red Ale</option>
+            <option value="Pilsner">Pilsner</option>
+            <option value="Brown Ale">Brown Ale</option>
+            <option value="Kolsch">Kolsch</option>
+            <option value="Belgian">Belgian</option>
+            <option value="Hefeweizen">IPA</option>
+            <option value="Sour">Sour</option>
+            <option value="Lager">Lager</option>
+            <option value="Stout">Stout</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Enter Price</label>
+          <input type="number" [(ngModel)]="selectedKeg.price">
+        </div>
+        <div class="form-group">
+          <label for="alcoholContent">Alcohol Content</label>
+        <input type="number" [(ngModel)]="alcoholContent">
+        </div>
+        <div class="form-group">
+          <label>Keg Empty?</label>
+          <input class="form-control" type="checkbox" [(ngModel)]="selectedKeg.empty" [value]="done">
+        </div>
+        <button (click)="finishedEditing()">Done</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="addingKeg">
+    <div class="card">
+      <div class="card-title">
+        <h2>Add a Keg</h2>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="form-group">
+            <label for="description">Keg Description</label>
+            <input class="form-control" [(ngModel)]="description" [ngModelOptions]="{standalone: true}" type="text" name="description">
+          </div>
+          <div class="form-group">
+            <label for="price">Pint Price</label>
+            <input class="form-control" [(ngModel)]="price" [ngModelOptions]="{standalone: true}" type="number" name="price">
+          </div>
+          <div class="form-group">
+            <label for="style">Select Style</label>
+            <select class="form-control" name="style" [(ngModel)]="style">
+              <option value="IPA">IPA</option>
+              <option value="APA">APA</option>
+              <option value="Red Ale">Red Ale</option>
+              <option value="Pilsner">Pilsner</option>
+              <option value="Brown Ale">Brown Ale</option>
+              <option value="Kolsch">Kolsch</option>
+              <option value="Belgian">Belgian</option>
+              <option value="Hefeweizen">IPA</option>
+              <option value="Sour">Sour</option>
+              <option value="Lager">Lager</option>
+              <option value="Stout">Stout</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="alcoholContent">Alcohol Content</label>
+          <input [ngModelOptions]="{standalone: true}" type="number" [(ngModel)]="alcoholContent">
+          </div>
+          <button (click)="addKeg(description, alcoholContent, price, style)">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <div class="card-title">
+      <h2>Filter Kegs</h2>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="style">Select Style</label>
+        <select class="form-control" name="style" [(ngModel)]="filterStyle">
+          <option value="IPA">IPA</option>
+          <option value="APA">APA</option>
+          <option value="Red Ale">Red Ale</option>
+          <option value="Pilsner">Pilsner</option>
+          <option value="Brown Ale">Brown Ale</option>
+          <option value="Kolsch">Kolsch</option>
+          <option value="Belgian">Belgian</option>
+          <option value="Hefeweizen">IPA</option>
+          <option value="Sour">Sour</option>
+          <option value="Lager">Lager</option>
+          <option value="Stout">Stout</option>
+        </select>
+      </div>
+      <button (click)="filterKegs(filterStyle)">Filter</button>
+      <div *ngIf="kegFilter">
+        <br>
+        <ul>
+          <li [class]="alcoholContentColor(keg)" *ngFor="let keg of filteredKegs">  <h2>{{keg.description}}</h2>
+            ${{keg.price}},
+            Style: {{keg.style}},
+            Pints Left: {{keg.pintsLeft}} ,
+            Alcohol Content: 0.{{keg.alcoholContent}}ABV</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

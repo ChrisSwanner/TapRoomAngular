@@ -1,0 +1,21 @@
+
+li {
+  list-style: none;
+  margin-top: 10px;
+  padding: 7px;
+  margin-left: -35px;
+}
+.doneEditing {
+  display: none;
+}
+.lowPints {
+  background-color: red;
+}
+.jumbotron {
+  color: black;
+  text-align: center;
+}
+
+.card {
+  padding: 10px;
+}
